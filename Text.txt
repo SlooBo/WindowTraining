@@ -1,0 +1,75 @@
+precision mediump float;
+
+varying vec2 position;
+
+void main() {
+  gl_FragColor.r = position.x;
+  gl_FragColor.g = 0.0;
+  gl_FragColor.b = 0.0;
+  gl_FragColor.a = 1.0;
+}
+
+
+
+precision mediump float;
+
+varying vec2 position;
+
+float random(float p) {
+  return fract(sin(p)*10000.);
+}
+
+float noise(vec2 p) {
+  return random(p.x + p.y*10000.);
+}
+
+void main() {
+  vec2 p = position;
+  float brightness = noise(p);
+  gl_FragColor.rgb = vec3(brightness);
+  gl_FragColor.a = 1.;
+}
+
+
+
+
+
+
+	std::string fragmentShaderCode =
+		"void main(){"
+		"gl_FragColor = vec4(0, 1, 0,1);"
+		"}";
+
+
+		
+	std::string vertexShaderCode =
+		"attribute vec3 vertexPosition_modelspace;"
+		"void main(){"
+		"gl_Position.xyz = vertexPosition_modelspace;"
+		"gl_Position.w = 1.0;"
+
+
+############version 150
+
+in vec3 Color;
+
+out vec4 outColor;
+
+void main()
+{
+	  outColor = vec4(Color, 1.0);
+}
+
+
+#version 150
+
+in vec2 position;
+in vec3 color;
+
+out vec3 Color;
+
+void main()
+{
+    Color = color;
+    gl_Position = vec4(position, 0.0, 1.0);
+}
